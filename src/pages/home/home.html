@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-navbar>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="logOut()">
+        <ion-icon name="log-out"></ion-icon>
+      </button>
+    </ion-buttons>
+
+    <ion-buttons start>
+      <button ion-button icon-only>
+        <ion-icon name="settings"></ion-icon>
+      </button>
+    </ion-buttons>
+
+    <ion-title>דוח 1</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-grid>
+    <ion-row>
+      <ion-col col-4 *ngFor="let option of reportOptions" [@flyInBottomSlow]="animate">
+        <div class="report-option">
+          <ion-icon name="{{option.icon}}"></ion-icon>
+          <span class="title">{{option.name}}</span>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

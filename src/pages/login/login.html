@@ -1,0 +1,52 @@
+<ion-content>
+  <!--<div padding [@flyInBottomFast]="cloudState" id="cloud-layer">-->
+
+  <ion-row>
+    <ion-col>
+      <ion-icon class="login-logo" [@flyInBottomSlow]="logoState" name="person"></ion-icon>
+    </ion-col>
+  </ion-row>
+
+  <div *ngIf="!smsSent">
+    <ion-row>
+      <ion-col inset [@bounceInBottom]="formState">
+        <ion-label color="light" stacked>הזן מספר פלאפון:</ion-label>
+        <ion-item class="phone-number">
+          <ion-label color="primary" fixed>+972</ion-label>
+          <ion-input class="phone-number" type="number" placeholder="506885451" [(ngModel)]="phoneNumber"></ion-input>
+        </ion-item>
+
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <button color="light" ion-button round outline (click)="signUp(phoneNumber)" [@fadeIn]="loginState">
+          שלח SMS
+        </button>
+      </ion-col>
+    </ion-row>
+
+    <div id="recaptcha-container"></div>
+  </div>
+
+  <div *ngIf="smsSent">
+      <ion-row>
+        <ion-col inset [@bounceInBottom]="formState">
+          <ion-label color="light" stacked>הזן קוד אישור:</ion-label>
+          <ion-item class="phone-number">
+            <ion-input class="phone-number" type="text" placeholder="999999" [(ngModel)]="confirmCode"></ion-input>
+          </ion-item>
+
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <button color="light" ion-button round outline (click)="confirmLogin(confirmCode)" [@fadeIn]="loginState">
+            שלח קוד אישור
+          </button>
+        </ion-col>
+      </ion-row>
+  </div>
+</ion-content>
