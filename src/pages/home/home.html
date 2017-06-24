@@ -19,10 +19,10 @@
 <ion-content padding>
   <ion-grid>
     <ion-row>
-      <ion-col col-4 *ngFor="let option of reportOptions" [@flyInBottomSlow]="animate" (click)="updateReport(option.id)">
-        <div class="report-option" [class.selected]="(report | async)?.$value === option.id">
-          <ion-icon name="{{option.icon}}"></ion-icon>
-          <span class="title">{{option.name}}</span>
+      <ion-col col-4 *ngFor="let status of reportStatuses" [@flyInBottomSlow]="animate" (click)="updateReport(status.id)">
+        <div class="report-status" [class.selected]="(report | async)?.$value === status.id">
+          <ion-icon name="{{status.icon}}"></ion-icon>
+          <span class="title">{{status.name}}</span>
         </div>
       </ion-col>
     </ion-row>

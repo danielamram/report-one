@@ -22,12 +22,12 @@ import { DBService } from '../../providers/db-service/db-service';
   ]
 })
 export class HomePage {
-  reportOptions: ReportOption[];
+  reportStatuses: ReportOption[];
   report: any;
   animate:string = 'in';
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private authService: AuthService, private dbService: DBService) {
-    this.reportOptions = ReportConfig;
+    this.reportStatuses = ReportConfig;
     this.report = this.dbService.getReport(this.authService.getUserId());
   }
 
