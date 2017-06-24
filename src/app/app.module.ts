@@ -7,15 +7,18 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { App } from './app.component';
 
+import { AuthService } from '../providers/auth-service/auth-service';
 import { LoginPage } from '../pages/login/login'
 import { AboutPage } from '../pages/about/about';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
+import { SettingsPage } from '../pages/settings/settings';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { environment } from '../environments/environment';
-import { AuthService } from '../providers/auth-service/auth-service';
+import { DBService } from '../providers/db-service/db-service';
+
 
 @NgModule({
   declarations: [
@@ -23,7 +26,8 @@ import { AuthService } from '../providers/auth-service/auth-service';
     LoginPage,
     AboutPage,
     HomePage,
-    TabsPage
+    TabsPage,
+    SettingsPage
   ],
   imports: [
     BrowserModule,
@@ -39,13 +43,15 @@ import { AuthService } from '../providers/auth-service/auth-service';
     LoginPage,
     AboutPage,
     HomePage,
-    TabsPage
+    TabsPage,
+    SettingsPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    AuthService
+    AuthService,
+    DBService
   ]
 })
 export class AppModule {}

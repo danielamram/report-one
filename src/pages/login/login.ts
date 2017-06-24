@@ -75,7 +75,7 @@ export class LoginPage {
     this.smsSent = await this.authService.signUp(phoneNumber, this.recaptchaVerifier);
   }
 
-  confirmLogin(confirmCode:string){
-    this.authService.confirm(confirmCode);
+  confirmLogin(confirmCode:string, displayName:string){
+    this.authService.confirm(confirmCode, displayName);
   }
 }

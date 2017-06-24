@@ -1,7 +1,10 @@
 import { Component } from '@angular/core';
+import { NavController, NavParams } from 'ionic-angular';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { AuthService } from '../../providers/auth-service/auth-service';
-import { reportOption } from '../../models/report-option';
+import { SettingsPage } from '../settings/settings';
+import { ReportConfig, ReportEnum, ReportOption } from '../../models/report-options';
+import { DBService } from '../../providers/db-service/db-service';
 
 @Component({
   selector: 'page-home',
@@ -19,45 +22,24 @@ import { reportOption } from '../../models/report-option';
   ]
 })
 export class HomePage {
-  reportOptions: reportOption[];
+  reportOptions: ReportOption[];
+  report: any;
   animate:string = 'in';
 
-  constructor(private authService: AuthService) {
-    this.reportOptions = [
-      {
-        name: 'בדרך',
-        icon: 'walk',
-        id: 1
-      },
-      {
-        name: 'חו"ל',
-        icon: 'cafe',
-        id: 2
-      },
-      {
-        name: 'מחוץ ליחידה',
-        icon: 'happy',
-        id: 3
-      },
-      {
-        name: 'קורס',
-        icon: 'book',
-        id: 4
-      },
-      {
-        name: 'חופש',
-        icon: 'card',
-        id: 5
-      },
-      {
-        name: 'מחלה',
-        icon: 'medkit',
-        id: 6
-      },
-    ];
+  constructor(public navCtrl: NavController, public navParams: NavParams, private authService: AuthService, private dbService: DBService) {
+    this.reportOptions = ReportConfig;
+    this.report = this.dbService.getReport(this.authService.getUserId());
   }
 
   logOut() {
     this.authService.signOut();
+  }
+
+  navigateSettings() {
+    this.navCtrl.push(SettingsPage);
+  }
+
+  updateReport(report: ReportEnum) {
+    this.dbService.updateReport(this.authService.getUserId(), report);
   }
 }

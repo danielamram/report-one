@@ -1,18 +1,20 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Observable } from 'rxjs/Observable';
+import { DBService } from '../db-service/db-service';
 import 'rxjs/add/operator/map';
+import { ReportUser } from '../../models/report-user';
 
 @Injectable()
 export class AuthService {
   private user: Observable<firebase.User>;
-  private confirmationResult:firebase.auth.ConfirmationResult;
+  private confirmationResult: firebase.auth.ConfirmationResult;
 
-  constructor(private afAuth: AngularFireAuth) {
-    this.user = afAuth.authState;
+  constructor(private afAuth: AngularFireAuth, private dbService: DBService) {
+    this.user = this.afAuth.authState;
   }
 
-  async signUp(phoneNumber: number, recaptchaVerifier:firebase.auth.RecaptchaVerifier){
+  async signUp(phoneNumber: number, recaptchaVerifier: firebase.auth.RecaptchaVerifier): Promise<boolean> {
     try {
       const phoneNumberString = "+972" + phoneNumber;
       this.confirmationResult = await this.afAuth.auth.signInWithPhoneNumber(phoneNumberString, recaptchaVerifier);
@@ -24,17 +26,27 @@ export class AuthService {
     }
   }
 
-  getUser() {
+  getUser(): Observable<firebase.User> {
     return this.user;
   }
 
-  confirm(confirmCode: string) {
-    this.confirmationResult.confirm(confirmCode).then(()=> {
-      console.log(this.afAuth.auth.currentUser);
+  getUserId(): string {
+    return this.afAuth.auth.currentUser.uid;
+  }
+
+  confirm(confirmCode: string, displayName: string) {
+    this.confirmationResult.confirm(confirmCode).then(() => {
+      let currentUser: ReportUser = {
+        id: this.afAuth.auth.currentUser.uid,
+        phoneNumber: this.afAuth.auth.currentUser.phoneNumber,
+        displayName: displayName
+      };
+
+      this.dbService.setUser(currentUser);
     });
   }
 
-  signOut() {
+  signOut(): void {
     this.afAuth.auth.signOut();
   }
 }

@@ -7,7 +7,7 @@
     </ion-buttons>
 
     <ion-buttons start>
-      <button ion-button icon-only>
+      <button ion-button icon-only (click)="navigateSettings()">
         <ion-icon name="settings"></ion-icon>
       </button>
     </ion-buttons>
@@ -19,8 +19,8 @@
 <ion-content padding>
   <ion-grid>
     <ion-row>
-      <ion-col col-4 *ngFor="let option of reportOptions" [@flyInBottomSlow]="animate">
-        <div class="report-option">
+      <ion-col col-4 *ngFor="let option of reportOptions" [@flyInBottomSlow]="animate" (click)="updateReport(option.id)">
+        <div class="report-option" [class.selected]="(report | async)?.$value === option.id">
           <ion-icon name="{{option.icon}}"></ion-icon>
           <span class="title">{{option.name}}</span>
         </div>

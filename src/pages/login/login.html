@@ -6,7 +6,7 @@
       <ion-icon class="login-logo" [@flyInBottomSlow]="logoState" name="person"></ion-icon>
     </ion-col>
   </ion-row>
-
+<div class="form-container">
   <div *ngIf="!smsSent">
     <ion-row>
       <ion-col inset [@bounceInBottom]="formState">
@@ -38,15 +38,20 @@
             <ion-input class="phone-number" type="text" placeholder="999999" [(ngModel)]="confirmCode"></ion-input>
           </ion-item>
 
+          <ion-label color="light" stacked>הזן שם מלא:</ion-label>
+          <ion-item>
+            <ion-input type="text" placeholder="ישראל ישראלי" [(ngModel)]="displayName"></ion-input>
+          </ion-item>
         </ion-col>
       </ion-row>
 
       <ion-row>
         <ion-col>
-          <button color="light" ion-button round outline (click)="confirmLogin(confirmCode)" [@fadeIn]="loginState">
+          <button color="light" ion-button round outline (click)="confirmLogin(confirmCode, displayName)" [@fadeIn]="loginState">
             שלח קוד אישור
           </button>
         </ion-col>
       </ion-row>
   </div>
+</div>
 </ion-content>
