@@ -13,7 +13,6 @@ export class DBService {
     this.users = this.db.list('users');
     this.reports = this.db.object('reports/' + new Date().toJSON().slice(0,10));
   }
-
   setUser(currentUser: ReportUser) {
     this.users.update(currentUser.id, currentUser);
   }

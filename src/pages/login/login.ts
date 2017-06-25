@@ -62,6 +62,7 @@ export class LoginPage {
   loginState: string = "in";
   formState: string = "in";
   smsSent: boolean = false;
+  isNewUser: boolean = false;
   private recaptchaVerifier:firebase.auth.RecaptchaVerifier;
 
   constructor(public navCtrl: NavController, private authService: AuthService) {
@@ -72,6 +73,7 @@ export class LoginPage {
   }
 
   async signUp(phoneNumber: number){
+    this.isNewUser = await this.authService.isNewUser(phoneNumber);
     this.smsSent = await this.authService.signUp(phoneNumber, this.recaptchaVerifier);
   }
 
