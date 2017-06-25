@@ -3,60 +3,121 @@
 
   <ion-row>
     <ion-col>
-      <ion-icon class="login-logo" [@flyInBottomSlow]="logoState" name="person"></ion-icon>
+      <ion-icon class="login-logo" [@fadeIn]="logoState" name="person"></ion-icon>
     </ion-col>
   </ion-row>
-<div class="form-container">
-  <div *ngIf="!smsSent">
-    <ion-row>
-      <ion-col inset [@bounceInBottom]="formState">
-        <ion-label color="light" stacked>הזן מספר פלאפון:</ion-label>
-        <ion-item class="phone-number">
-          <ion-label color="primary" fixed>+972</ion-label>
-          <ion-input class="phone-number" type="number" placeholder="506885451" [(ngModel)]="phoneNumber"></ion-input>
-        </ion-item>
-
-      </ion-col>
-    </ion-row>
-
-    <ion-row>
-      <ion-col>
-        <button color="light" ion-button round outline (click)="signUp(phoneNumber)" [@fadeIn]="loginState">
-          שלח SMS
-        </button>
-      </ion-col>
-    </ion-row>
-
-    <div id="recaptcha-container"></div>
-  </div>
-
-  <div *ngIf="smsSent">
+  <div class="form-container">
+    <form *ngIf="!smsSent"
+          (ngSubmit)="signUp(phoneNumber, false)"
+          [formGroup]="signupForm">
       <ion-row>
         <ion-col inset [@bounceInBottom]="formState">
-          <ion-label color="light" stacked>הזן קוד אישור:</ion-label>
+          <ion-label color="light" stacked>הזן מספר פלאפון:</ion-label>
           <ion-item class="phone-number">
-            <ion-input class="phone-number" type="text" placeholder="999999" [(ngModel)]="confirmCode"></ion-input>
+            <ion-label color="primary" fixed>+972</ion-label>
+            <ion-input class="phone-number"
+                       type="number"
+                       placeholder="506885451"
+                       [(ngModel)]="phoneNumber"
+                       formControlName="phoneNumberControl"
+                       required>
+            </ion-input>
           </ion-item>
-          <div *ngIf="isNewUser">
-          <ion-label color="light" stacked>הזן שם מלא:</ion-label>
-          <ion-item>
-            <ion-input type="text" placeholder="ישראל ישראלי" [(ngModel)]="displayName"></ion-input>
-          </ion-item>
-          <ion-label color="light" stacked>הזן תעודת זהות:</ion-label>
-          <ion-item>
-            <ion-input type="text" [(ngModel)]="cid"></ion-input>
-          </ion-item>
+          <div class="errors"
+               *ngIf="shouldShowControlErrors(phoneNumberControl)">
+            <p *ngIf="phoneNumberControl.errors.required">מספר הטלפון הוא שדה חובה.</p>
+            <p *ngIf="phoneNumberControl.errors.pattern">מספר הטלפון חייב להתחיל ב-5 ולהיות בעל 9 ספרות.</p>
           </div>
         </ion-col>
       </ion-row>
 
       <ion-row>
         <ion-col>
-          <button color="light" ion-button round outline (click)="confirmLogin(confirmCode, displayName, cid)" [@fadeIn]="loginState">
+          <button color="light"
+                  [disabled]="!signupForm.valid"
+                  type="submit"
+                  ion-button
+                  round
+                  outline
+                  [@flyInBottomSlow]="loginState">
+            שלח SMS
+          </button>
+        </ion-col>
+      </ion-row>
+
+    </form>
+
+    <form *ngIf="smsSent"
+          (ngSubmit)="confirmLogin(confirmCode, displayName, cid)"
+          [formGroup]="loginForm">
+      <ion-row>
+        <ion-col inset [@bounceInBottom]="formState">
+          <ion-label color="light" stacked>הזן קוד אישור:</ion-label>
+          <div class="resend-sms">
+            <ion-label color="light"
+                       stacked
+                       (click)="signUp(phoneNumber, true)"
+                       [style.cursor]="resendTimer > 0 ? 'default' : 'pointer'">
+              שלח קוד אישור מחדש
+            </ion-label>
+            <ion-label>
+              {{formatTimer(resendTimer)}}
+            </ion-label>
+          </div>
+          <ion-item class="phone-number">
+            <ion-input class="phone-number"
+                       type="text"
+                       placeholder="999999"
+                       [(ngModel)]="confirmCode"
+                       required
+                       formControlName="confirmCodeControl"></ion-input>
+          </ion-item>
+          <div *ngIf="shouldShowControlErrors(confirmCodeControl)" class="errors">
+            <p *ngIf="confirmCodeControl.errors.required">קוד האישור הוא שדה חובה.</p>
+            <p *ngIf="confirmCodeControl.errors.pattern">קוד האישור חייב להיות בעל 6 ספרות.</p>
+          </div>
+          <div *ngIf="isNewUser">
+            <ion-label color="light" stacked>הזן שם מלא:</ion-label>
+            <ion-item>
+              <ion-input type="text"
+                         placeholder="ישראל ישראלי"
+                         [(ngModel)]="displayName"
+                         required
+                         formControlName="displayNameControl"></ion-input>
+            </ion-item>
+            <div *ngIf="shouldShowControlErrors(displayNameControl)" class="errors">
+              <p *ngIf="displayNameControl.errors.required">השם המלא הוא שדה חובה.</p>
+            </div>
+
+            <ion-label color="light" stacked>הזן תעודת זהות:</ion-label>
+            <ion-item>
+              <ion-input type="text"
+                         [(ngModel)]="cid"
+                         required
+                         formControlName="cidControl"></ion-input>
+            </ion-item>
+            <div *ngIf="shouldShowControlErrors(cidControl)" class="errors">
+              <p *ngIf="cidControl.errors.required">תעודת הזהות היא שדה חובה.</p>
+              <p *ngIf="cidControl.errors.pattern">תעודת הזהות חייב להיות בעל 9 ספרות.</p>
+            </div>
+          </div>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <button color="light"
+                  ion-button
+                  round
+                  outline
+                  type="submit"
+                  [@flyInBottomSlow]="loginState"
+                  [disabled]="!loginForm.valid">
             התחבר
           </button>
         </ion-col>
       </ion-row>
+    </form>
+    <div id="recaptcha-container"></div>
   </div>
-</div>
 </ion-content>
