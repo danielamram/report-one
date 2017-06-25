@@ -20,7 +20,7 @@ export class Friend implements OnChanges {
     this.dbService.getReport(changes['friend'].currentValue).subscribe((report)=>{
       console.log('friend id: ',changes['friend'].currentValue);
       console.log('friend status: ',report);
-    })
+    });
   }
 
 }

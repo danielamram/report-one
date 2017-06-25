@@ -8,6 +8,8 @@
 
 <ion-content padding>
   <div *ngFor='let id of (friendsIDs | async)'>
+    <friend [friend]=id>
+    </friend>
   </div>
 </ion-content>
 
