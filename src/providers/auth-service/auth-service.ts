@@ -11,7 +11,7 @@ export class AuthService {
   private confirmationResult: firebase.auth.ConfirmationResult;
   public currentUser: any;
 
-  constructor(private afAuth: AngularFireAuth, private dbService: DBService) {
+  constructor(public afAuth: AngularFireAuth, private dbService: DBService) {
     this.user = this.afAuth.authState;
   }
 

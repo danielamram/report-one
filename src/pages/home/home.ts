@@ -24,7 +24,7 @@ import {DBService} from "../../providers/db-service/db-service";
 export class HomePage {
   reportStatuses: ReportOption[];
   report: any;
-  animate:string = 'in';
+  animate: string = 'in';
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private authService: AuthService, private dbService: DBService, public alertCtrl: AlertController) {
     this.reportStatuses = ReportConfig;

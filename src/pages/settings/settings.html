@@ -30,12 +30,10 @@
       </ion-item>
     </div>
     <div padding class="flex-row">
-      <button ion-button color="primary" block margin *ngIf="!isEditMode;else inEditMode" (click)="enableEditMode()">
-        ערוך
-      </button>
+      <button ion-button color="primary" block margin *ngIf="!isEditMode;else inEditMode" (click)="enableEditMode()">ערוך</button>
       <ng-template #inEditMode>
         <button ion-button color="primary" (click)="updateDetails()" block margin>שמור</button>
-        <button ion-button *ngIf="isEditMode" (click)="disableEditMode()" color="danger" block margin>בטל</button>
+        <button ion-button *ngIf="isEditMode" (click)="cancelDetails()" color="danger" block margin>בטל</button>
       </ng-template>
     </div>
   </ion-list>

@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Output} from '@angular/core';
 import {AuthService} from '../../providers/auth-service/auth-service';
 import {ReportUser} from '../../models/report-user';
+import * as _ from "lodash";
 
 @Component({
   selector: 'page-settings',
@@ -17,7 +18,7 @@ export class SettingsPage {
   constructor(private authService: AuthService) {
     this.onUpdateDetails = new EventEmitter();
     this.currentUser = authService.currentUser[0];
-    this.currentUserBefore = Object.assign({}, this.currentUser);
+    this.currentUserBefore = JSON.parse(JSON.stringify(this.currentUser));
   }
 
   ionViewDidLoad() {
@@ -28,9 +29,9 @@ export class SettingsPage {
     this.isEditMode = true;
   }
 
-  disableEditMode() {
+  cancelDetails() {
     this.isEditMode = false;
-    this.currentUser = this.currentUserBefore;
+    this.currentUser = _.cloneDeep(this.currentUserBefore);
   }
 
   updateDetails() {
