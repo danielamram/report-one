@@ -66,6 +66,7 @@ export class LoginPage implements OnInit {
   loginState: string = "in";
   formState: string = "in";
   smsSent: boolean = false;
+  isNewUser: boolean = false;
   resendTimer: number = 0;
   private recaptchaVerifier:firebase.auth.RecaptchaVerifier;
 
@@ -103,6 +104,9 @@ export class LoginPage implements OnInit {
     }
 
     this.initRecaptcha();
+    if (!resend) {
+      this.isNewUser = await this.authService.isNewUser(phoneNumber);
+    }
     let smsSent: boolean = await this.authService.signUp(phoneNumber, this.recaptchaVerifier);
     this.resendTimer = RESEND_TIMER_PERIOD;
     if (!resend) {

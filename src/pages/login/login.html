@@ -72,6 +72,7 @@
                        required
                        formControlName="confirmCodeControl"></ion-input>
           </ion-item>
+          <div *ngIf="isNewUser">
           <div *ngIf="shouldShowControlErrors(confirmCodeControl)" class="errors">
             <p *ngIf="confirmCodeControl.errors.required">קוד האישור הוא שדה חובה.</p>
             <p *ngIf="confirmCodeControl.errors.pattern">קוד האישור חייב להיות בעל 6 ספרות.</p>
@@ -96,9 +97,10 @@
                        required
                        formControlName="cidControl"></ion-input>
           </ion-item>
-          <div *ngIf="shouldShowControlErrors(cidControl)" class="errors">
-            <p *ngIf="cidControl.errors.required">תעודת הזהות היא שדה חובה.</p>
-            <p *ngIf="cidControl.errors.pattern">תעודת הזהות חייב להיות בעל 9 ספרות.</p>
+            <div *ngIf="shouldShowControlErrors(cidControl)" class="errors">
+              <p *ngIf="cidControl.errors.required">תעודת הזהות היא שדה חובה.</p>
+              <p *ngIf="cidControl.errors.pattern">תעודת הזהות חייב להיות בעל 9 ספרות.</p>
+            </div>
           </div>
         </ion-col>
       </ion-row>
@@ -112,7 +114,7 @@
                   type="submit"
                   [@flyInBottomSlow]="loginState"
                   [disabled]="!loginForm.valid">
-            שלח קוד אישור
+            התחבר
           </button>
         </ion-col>
       </ion-row>
