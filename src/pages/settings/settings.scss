@@ -5,11 +5,15 @@ page-settings {
     overflow: hidden;
   }
 
+  .edit-button {
+    width: 15%;
+    margin: 4px;
+  }
+
   .settings-options {
     margin: 10px;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
   }
 
   .settings-item {

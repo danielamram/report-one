@@ -15,6 +15,20 @@
 
 <ion-content>
   <ion-list class="scroll-content settings-options">
+    <div padding class="flex-row flex-end">
+      <button class="edit-button" ion-button color="primary" block *ngIf="!isEditMode;else inEditMode"
+              (click)="enableEditMode()">
+        <ion-icon style="font-size: 23px;" md="md-create" ios="md-create"></ion-icon>
+      </button>
+      <ng-template #inEditMode>
+          <button class="edit-button" ion-button color="secondary" (click)="updateDetails()" block >
+            <ion-icon style="font-size: 26px;" ios="md-checkmark" md="md-checkmark"></ion-icon>
+          </button>
+          <button class="edit-button" ion-button *ngIf="isEditMode" (click)="cancelDetails()" color="danger" block>
+            <ion-icon style="font-size: 26px;" ios="md-close" md="md-close"></ion-icon>
+          </button>
+      </ng-template>
+    </div>
     <div>
       <ion-item class="settings-item">
         <ion-label floating>שם פרטי</ion-label>
@@ -28,13 +42,6 @@
         <ion-label floating>תעודת זהות</ion-label>
         <ion-input type="text" value="{{currentUser.cid}}" disabled autofocus></ion-input>
       </ion-item>
-    </div>
-    <div padding class="flex-row">
-      <button ion-button color="primary" block margin *ngIf="!isEditMode;else inEditMode" (click)="enableEditMode()">ערוך</button>
-      <ng-template #inEditMode>
-        <button ion-button color="primary" (click)="updateDetails()" block margin>שמור</button>
-        <button ion-button *ngIf="isEditMode" (click)="cancelDetails()" color="danger" block margin>בטל</button>
-      </ng-template>
     </div>
   </ion-list>
 </ion-content>
