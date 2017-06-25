@@ -18,6 +18,12 @@ export class DBService {
     this.users.update(currentUser.id, currentUser);
   }
 
+  getUserById(id:string) {
+    this.users.subscribe(users => {
+      return users.filter(user => user.id === id);
+    });
+  }
+
   updateReport(id: string, report: ReportEnum) {
     this.reports.$ref.child(id).set(report);
   }

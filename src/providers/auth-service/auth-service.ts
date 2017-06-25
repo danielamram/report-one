@@ -9,6 +9,7 @@ import { ReportUser } from '../../models/report-user';
 export class AuthService {
   private user: Observable<firebase.User>;
   private confirmationResult: firebase.auth.ConfirmationResult;
+  private currentUser: ReportUser;
 
   constructor(private afAuth: AngularFireAuth, private dbService: DBService) {
     this.user = this.afAuth.authState;
@@ -23,6 +24,18 @@ export class AuthService {
     catch (error) {
       console.log(error);
       return false;
+    }
+  }
+
+  getCurrentUser(): ReportUser {
+    if(this.currentUser) {
+      return this.currentUser;
+    } else {
+      return {
+        displayName: "debug",
+        phoneNumber: "0504084477",
+        id: "123456789"
+      }
     }
   }
 
@@ -41,7 +54,7 @@ export class AuthService {
         phoneNumber: this.afAuth.auth.currentUser.phoneNumber,
         displayName: displayName
       };
-
+      this.currentUser = currentUser;
       this.dbService.setUser(currentUser);
     });
   }
