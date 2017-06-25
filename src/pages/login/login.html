@@ -57,7 +57,7 @@
             <ion-label color="light"
                        stacked
                        (click)="signUp(phoneNumber, true)"
-            [style.cursor]="resendTimer > 0 ? 'default' : 'pointer'">
+                       [style.cursor]="resendTimer > 0 ? 'default' : 'pointer'">
               שלח קוד אישור מחדש
             </ion-label>
             <ion-label>
@@ -72,31 +72,30 @@
                        required
                        formControlName="confirmCodeControl"></ion-input>
           </ion-item>
-          <div *ngIf="isNewUser">
           <div *ngIf="shouldShowControlErrors(confirmCodeControl)" class="errors">
             <p *ngIf="confirmCodeControl.errors.required">קוד האישור הוא שדה חובה.</p>
             <p *ngIf="confirmCodeControl.errors.pattern">קוד האישור חייב להיות בעל 6 ספרות.</p>
           </div>
+          <div *ngIf="isNewUser">
+            <ion-label color="light" stacked>הזן שם מלא:</ion-label>
+            <ion-item>
+              <ion-input type="text"
+                         placeholder="ישראל ישראלי"
+                         [(ngModel)]="displayName"
+                         required
+                         formControlName="displayNameControl"></ion-input>
+            </ion-item>
+            <div *ngIf="shouldShowControlErrors(displayNameControl)" class="errors">
+              <p *ngIf="displayNameControl.errors.required">השם המלא הוא שדה חובה.</p>
+            </div>
 
-          <ion-label color="light" stacked>הזן שם מלא:</ion-label>
-          <ion-item>
-            <ion-input type="text"
-                       placeholder="ישראל ישראלי"
-                       [(ngModel)]="displayName"
-                       required
-                       formControlName="displayNameControl"></ion-input>
-          </ion-item>
-          <div *ngIf="shouldShowControlErrors(displayNameControl)" class="errors">
-            <p *ngIf="displayNameControl.errors.required">השם המלא הוא שדה חובה.</p>
-          </div>
-
-          <ion-label color="light" stacked>הזן תעודת זהות:</ion-label>
-          <ion-item>
-            <ion-input type="text"
-                       [(ngModel)]="cid"
-                       required
-                       formControlName="cidControl"></ion-input>
-          </ion-item>
+            <ion-label color="light" stacked>הזן תעודת זהות:</ion-label>
+            <ion-item>
+              <ion-input type="text"
+                         [(ngModel)]="cid"
+                         required
+                         formControlName="cidControl"></ion-input>
+            </ion-item>
             <div *ngIf="shouldShowControlErrors(cidControl)" class="errors">
               <p *ngIf="cidControl.errors.required">תעודת הזהות היא שדה חובה.</p>
               <p *ngIf="cidControl.errors.pattern">תעודת הזהות חייב להיות בעל 9 ספרות.</p>

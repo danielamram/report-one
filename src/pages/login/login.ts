@@ -106,6 +106,7 @@ export class LoginPage implements OnInit {
     this.initRecaptcha();
     if (!resend) {
       this.isNewUser = await this.authService.isNewUser(phoneNumber);
+      this.createLoginForm(this.isNewUser);
     }
     let smsSent: boolean = await this.authService.signUp(phoneNumber, this.recaptchaVerifier);
     this.resendTimer = RESEND_TIMER_PERIOD;
@@ -147,11 +148,11 @@ export class LoginPage implements OnInit {
   }
 
   ngOnInit() {
-    this.createFormsControls();
-    this.createForms();
+    this.createSignupFormControls();
+    this.createSignupForm();
   }
 
-  createFormsControls() {
+  createSignupFormControls() {
     this.phoneNumberControl = new FormControl(
       '',
       Validators.compose([
@@ -159,35 +160,37 @@ export class LoginPage implements OnInit {
         Validators.pattern('5\\d{8}')
       ])
     );
+  }
 
-    this.confirmCodeControl = new FormControl(
+  createSignupForm() {
+    this.signupForm = new FormGroup({
+      phoneNumberControl: this.phoneNumberControl
+    });
+  }
+
+  createLoginForm(isNewUser: boolean){
+    let controls: any = {};
+    this.confirmCodeControl = controls.confirmCodeControl = new FormControl(
       '',
       Validators.compose([
         Validators.required,
         Validators.pattern('\\d{6}')
       ])
     );
-    this.displayNameControl = new FormControl(
-      '',
-      Validators.required
-    );
-    this.cidControl = new FormControl(
-      '',
-      Validators.compose([
-        Validators.required,
-        Validators.pattern('\\d{9}')
-      ])
-    );
-  }
+    if (isNewUser) {
+      this.displayNameControl = controls.displayNameControl = new FormControl(
+        '',
+        Validators.required
+      );
+      this.cidControl = controls.cidControl = new FormControl(
+        '',
+        Validators.compose([
+          Validators.required,
+          Validators.pattern('\\d{9}')
+        ])
+      );
+    }
 
-  createForms() {
-    this.signupForm = new FormGroup({
-      phoneNumberControl: this.phoneNumberControl
-    });
-    this.loginForm = new FormGroup({
-      confirmCodeControl: this.confirmCodeControl,
-      displayNameControl: this.displayNameControl,
-      cidControl: this.cidControl
-    });
+    this.loginForm = new FormGroup(controls);
   }
 }
