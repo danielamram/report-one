@@ -57,11 +57,12 @@ import { trigger, state, style, transition, animate, keyframes } from '@angular/
   ]
 })
 export class LoginPage {
-  logoState: any = "in";
-  cloudState: any = "in";
-  loginState: any = "in";
-  formState: any = "in";
+  logoState: string = "in";
+  cloudState: string = "in";
+  loginState: string = "in";
+  formState: string = "in";
   smsSent: boolean = false;
+  isNewUser: boolean = false;
   private recaptchaVerifier:firebase.auth.RecaptchaVerifier;
 
   constructor(public navCtrl: NavController, private authService: AuthService) {
@@ -72,10 +73,11 @@ export class LoginPage {
   }
 
   async signUp(phoneNumber: number){
+    this.isNewUser = await this.authService.isNewUser(phoneNumber);
     this.smsSent = await this.authService.signUp(phoneNumber, this.recaptchaVerifier);
   }
 
-  confirmLogin(confirmCode:string, displayName:string){
-    this.authService.confirm(confirmCode, displayName);
+  confirmLogin(confirmCode:string, displayName:string, cid:string){
+    this.authService.confirm(confirmCode, displayName, cid);
   }
 }
