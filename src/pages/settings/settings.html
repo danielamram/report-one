@@ -22,11 +22,11 @@
       </ion-item>
       <ion-item class="settings-item">
         <ion-label floating>מספר טלפון</ion-label>
-        <ion-input type="number"  [(ngModel)]="currentUser.phoneNumber"  [disabled]="!isEditMode" ></ion-input>
+        <ion-input type="text"  [(ngModel)]="currentUser.phoneNumber"  [disabled]="!isEditMode" ></ion-input>
       </ion-item>
       <ion-item class="settings-item">
         <ion-label floating>תעודת זהות</ion-label>
-        <ion-input type="number" value="{{currentUser.cid}}" disabled autofocus></ion-input>
+        <ion-input type="text" value="{{currentUser.cid}}" disabled autofocus></ion-input>
       </ion-item>
     </div>
     <div padding class="flex-row">

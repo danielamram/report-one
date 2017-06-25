@@ -7,7 +7,7 @@ import {ReportUser} from "../../models/report-user";
   selector: 'page-settings',
   templateUrl: 'settings.html',
 })
-export class SettingsPage implements OnInit{
+export class SettingsPage {
   public isEditMode:boolean = false;
   public user:any;
   public currentUser:ReportUser;
@@ -16,10 +16,7 @@ export class SettingsPage implements OnInit{
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private authService : AuthService) {
     this.onUpdateDetails = new EventEmitter();
-  }
-
-  ngOnInit() {
-    this.currentUser = this.authService.getCurrentUser()
+    this.currentUser = authService.currentUser[0];
   }
 
   ionViewDidLoad() {

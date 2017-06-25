@@ -9,9 +9,9 @@ import { ReportUser } from '../../models/report-user';
 export class AuthService {
   private user: Observable<firebase.User>;
   private confirmationResult: firebase.auth.ConfirmationResult;
-  private currentUser: ReportUser;
+  public currentUser: any;
 
-  constructor(private afAuth: AngularFireAuth, private dbService: DBService) {
+  constructor(public afAuth: AngularFireAuth, private dbService: DBService) {
     this.user = this.afAuth.authState;
   }
 
@@ -27,20 +27,12 @@ export class AuthService {
     }
   }
 
-  getCurrentUser(): ReportUser {
-    if(this.currentUser) {
-      return this.currentUser;
-    } else {
-      return {
-        displayName: "debug",
-        phoneNumber: "0504084477",
-        id: "123456789"
-      }
-    }
-  }
-
   getUser(): Observable<firebase.User> {
     return this.user;
+  }
+
+  getCurrentUser(): Observable<any> {
+    return this.dbService.getUsers();
   }
 
   getUserId(): string {
@@ -55,7 +47,6 @@ export class AuthService {
         phoneNumber: this.afAuth.auth.currentUser.phoneNumber,
         displayName: displayName
       };
-      this.currentUser = currentUser;
       this.dbService.setUser(currentUser);
     });
   }

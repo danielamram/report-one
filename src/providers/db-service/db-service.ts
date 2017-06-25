@@ -18,10 +18,8 @@ export class DBService {
     this.users.update(currentUser.id, currentUser);
   }
 
-  getUserById(id:string) {
-    this.users.subscribe(users => {
-      return users.filter(user => user.id === id);
-    });
+  getUsers() {
+    return this.db.list('users');
   }
 
   updateReport(id: string, report: ReportEnum) {
