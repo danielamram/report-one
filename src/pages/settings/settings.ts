@@ -1,5 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {AlertController, NavController, NavParams} from 'ionic-angular';
+import {Component, EventEmitter, Output} from "@angular/core";
 import {AuthService} from "../../providers/auth-service/auth-service";
 import {ReportUser} from "../../models/report-user";
 
@@ -15,7 +14,7 @@ export class SettingsPage {
 
   @Output() public onUpdateDetails:EventEmitter<any>;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private authService : AuthService) {
+  constructor(private authService : AuthService) {
     this.onUpdateDetails = new EventEmitter();
     this.currentUser = authService.currentUser[0];
     this.currentUserBefore = Object.assign({},this.currentUser) ;
