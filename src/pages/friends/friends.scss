@@ -1,5 +1,7 @@
 friends-page {
-  .user {
-    background-image: url(../../assets/images/avatar.png);
+  .scroll-content {
+    background-image: url(../../assets/images/bg.jpg);
+    background-size: cover;
+    overflow: hidden;
   }
 }
