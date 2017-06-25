@@ -37,23 +37,23 @@
           <ion-item class="phone-number">
             <ion-input class="phone-number" type="text" placeholder="999999" [(ngModel)]="confirmCode"></ion-input>
           </ion-item>
-
+          <div *ngIf="isNewUser">
           <ion-label color="light" stacked>הזן שם מלא:</ion-label>
           <ion-item>
             <ion-input type="text" placeholder="ישראל ישראלי" [(ngModel)]="displayName"></ion-input>
           </ion-item>
-
           <ion-label color="light" stacked>הזן תעודת זהות:</ion-label>
           <ion-item>
             <ion-input type="text" [(ngModel)]="cid"></ion-input>
           </ion-item>
+          </div>
         </ion-col>
       </ion-row>
 
       <ion-row>
         <ion-col>
           <button color="light" ion-button round outline (click)="confirmLogin(confirmCode, displayName, cid)" [@fadeIn]="loginState">
-            שלח קוד אישור
+            התחבר
           </button>
         </ion-col>
       </ion-row>
