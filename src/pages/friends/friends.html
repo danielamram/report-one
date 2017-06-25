@@ -7,11 +7,16 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-list class="scroll-content">
-    <div *ngFor='let id of (friendsIDs | async)'>
-      <friend [friend]=id>
+  <ion-card class="scrollableContent">
+    <ion-scroll scrollY="true">
+    <ion-list no-lines no-padding class="scroll-content">
+      <friend *ngFor='let id of (friendsIDs | async)'  [friend]=id>
       </friend>
-    </div>
-  </ion-list>
+      <friend *ngFor='let id of (friendsIDs | async)'  [friend]=id>
+      </friend>
+    </ion-list>
+  </ion-scroll>
+  </ion-card>
+
 </ion-content>
 
