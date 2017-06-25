@@ -18,6 +18,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { environment } from '../environments/environment';
 import { DBService } from '../providers/db-service/db-service';
+import {Friend} from "../pages/friend/friend";
 
 
 @NgModule({
@@ -25,6 +26,7 @@ import { DBService } from '../providers/db-service/db-service';
     App,
     LoginPage,
     FriendsPage,
+    Friend,
     HomePage,
     TabsPage,
     SettingsPage

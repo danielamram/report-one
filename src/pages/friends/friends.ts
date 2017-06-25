@@ -12,5 +12,6 @@ export class FriendsPage {
   constructor(public navCtrl: NavController, dbService:DBService, authService: AuthService) {
     let currUserId = authService.getUserId();
     this.friendsIDs = dbService.getFriendsOfUser(currUserId);
+
   }
 }

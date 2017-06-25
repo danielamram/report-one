@@ -13,6 +13,7 @@ export class DBService {
     this.users = this.db.list('users');
     this.reports = this.db.object('reports/' + new Date().toJSON().slice(0,10));
   }
+
   setUser(currentUser: ReportUser) {
     this.users.update(currentUser.id, currentUser);
   }
@@ -27,5 +28,13 @@ export class DBService {
 
   getFriendsOfUser(userId: string): FirebaseObjectObservable<any> {
     return this.db.object('users/'+userId+'/friends');
+  }
+
+  async getUserProperties(userId: string): Promise<any> {
+    return new Promise<boolean>((resolve, reject) => {
+      this.db.object('users/'+userId).subscribe((user)=>{
+        resolve(user);
+      })
+    });
   }
 }
