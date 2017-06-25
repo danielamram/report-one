@@ -18,6 +18,10 @@ export class DBService {
     this.users.update(currentUser.id, currentUser);
   }
 
+  getUsers() {
+    return this.db.list('users');
+  }
+
   updateReport(id: string, report: ReportEnum) {
     this.reports.$ref.child(id).set(report);
   }

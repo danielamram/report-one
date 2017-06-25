@@ -1,6 +1,6 @@
 import {Component} from "@angular/core";
-import {NavController, NavParams} from "ionic-angular";
-import {trigger, state, style, transition, animate} from "@angular/animations";
+import {AlertController, NavController, NavParams} from "ionic-angular";
+import {animate, state, style, transition, trigger} from "@angular/animations";
 import {AuthService} from "../../providers/auth-service/auth-service";
 import {SettingsPage} from "../settings/settings";
 import {ReportConfig, ReportEnum, ReportOption} from "../../models/report-options";
@@ -25,15 +25,38 @@ import {CalendarPage} from "../calander/calendar";
 export class HomePage {
   reportStatuses: ReportOption[];
   report: any;
-  animate:string = 'in';
+  animate: string = 'in';
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private authService: AuthService, private dbService: DBService) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private authService: AuthService, private dbService: DBService, public alertCtrl: AlertController) {
     this.reportStatuses = ReportConfig;
     this.report = this.dbService.getReport(this.authService.getUserId());
+    this.authService.getCurrentUser().subscribe(users => {
+      this.authService.currentUser = users.filter(user => {
+        return user.id === this.authService.afAuth.auth.currentUser.uid;
+      });
+    });
   }
 
   logOut() {
-    this.authService.signOut();
+    let confirm = this.alertCtrl.create({
+      title: 'התנתקות מהמערכת',
+      message: 'האם אתה בטוח שברצונך להתנתק?',
+      buttons: [
+        {
+          text: 'ביטול',
+          handler: () => {
+            return;
+          }
+        },
+        {
+          text: 'אישור',
+          handler: () => {
+            this.authService.signOut();
+          }
+        }
+      ]
+    });
+    confirm.present();
   }
 
   navigateSettings() {

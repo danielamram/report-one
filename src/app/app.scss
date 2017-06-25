@@ -19,3 +19,17 @@
 body {
   font-family: 'Varela Round', sans-serif;
 }
+
+.label-md {
+  transform-origin: right top !important;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}

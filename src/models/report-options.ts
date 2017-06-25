@@ -27,7 +27,7 @@ export const ReportConfig: ReportOption[] = [
   },
   {
     name: 'חו"ל',
-    icon: 'cafe',
+    icon: 'ios-plane',
     id: ReportEnum.ABROAD,
     color:{
       primary: '#1e90ff',
