@@ -7,12 +7,42 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>settings</ion-title>
+    <ion-title>הגדרות</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
-
+<ion-content>
+  <ion-list class="scroll-content settings-options">
+    <div padding class="flex-row flex-end">
+      <button class="edit-button" ion-button color="primary" block *ngIf="!isEditMode;else inEditMode"
+              (click)="enableEditMode()">
+        <ion-icon style="font-size: 23px;" md="md-create" ios="md-create"></ion-icon>
+      </button>
+      <ng-template #inEditMode>
+          <button class="edit-button" ion-button color="secondary" (click)="updateDetails()" block >
+            <ion-icon style="font-size: 26px;" ios="md-checkmark" md="md-checkmark"></ion-icon>
+          </button>
+          <button class="edit-button" ion-button *ngIf="isEditMode" (click)="cancelDetails()" color="danger" block>
+            <ion-icon style="font-size: 26px;" ios="md-close" md="md-close"></ion-icon>
+          </button>
+      </ng-template>
+    </div>
+    <div>
+      <ion-item class="settings-item">
+        <ion-label floating>שם פרטי</ion-label>
+        <ion-input type="text" [(ngModel)]="currentUser.displayName" [disabled]="!isEditMode"></ion-input>
+      </ion-item>
+      <ion-item class="settings-item">
+        <ion-label floating>מספר טלפון</ion-label>
+        <ion-input type="text" [(ngModel)]="currentUser.phoneNumber" [disabled]="!isEditMode"></ion-input>
+      </ion-item>
+      <ion-item class="settings-item">
+        <ion-label floating>תעודת זהות</ion-label>
+        <ion-input type="text" value="{{currentUser.cid}}" disabled autofocus></ion-input>
+      </ion-item>
+    </div>
+  </ion-list>
 </ion-content>
+

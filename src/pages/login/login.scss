@@ -37,5 +37,19 @@
       align-items: center;
       text-align: center;
     }
+
+    .errors p{
+      color: #c62323;
+    }
+
+    .resend-sms {
+      position: absolute;color: #606267;
+      left: 6px;
+      top: 13px;
+    }
+
+    .resend-sms ion-label {
+      display: inline;
+    }
   }
 }

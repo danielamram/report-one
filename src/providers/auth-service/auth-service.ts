@@ -9,8 +9,9 @@ import {ReportUser} from '../../models/report-user';
 export class AuthService {
   private user: Observable<firebase.User>;
   private confirmationResult: firebase.auth.ConfirmationResult;
+  public currentUser: any;
 
-  constructor(private afAuth: AngularFireAuth, private dbService: DBService) {
+  constructor(public afAuth: AngularFireAuth, private dbService: DBService) {
     this.user = this.afAuth.authState;
   }
 
@@ -39,8 +40,16 @@ export class AuthService {
     return this.user;
   }
 
+  getCurrentUser(): Observable<any> {
+    return this.dbService.getUsers();
+  }
+
   getUserId(): string {
     return this.afAuth.auth.currentUser.uid;
+  }
+
+  updateUser(user:ReportUser) {
+    this.dbService.setUser(user);
   }
 
   confirm(confirmCode: string, displayName: string, cid:string) {
