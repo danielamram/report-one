@@ -5,6 +5,7 @@ import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
+import { CalendarModule } from "angular-calendar/dist/esm/src/index";
 import { App } from './app.component';
 
 import { AuthService } from '../providers/auth-service/auth-service';
@@ -13,6 +14,7 @@ import { AboutPage } from '../pages/about/about';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 import { SettingsPage } from '../pages/settings/settings';
+import { CalendarPage } from "../pages/calander/calendar";
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -27,11 +29,13 @@ import { DBService } from '../providers/db-service/db-service';
     AboutPage,
     HomePage,
     TabsPage,
-    SettingsPage
+    SettingsPage,
+    CalendarPage
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(App),
+    CalendarModule.forRoot(),
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
@@ -44,7 +48,8 @@ import { DBService } from '../providers/db-service/db-service';
     AboutPage,
     HomePage,
     TabsPage,
-    SettingsPage
+    SettingsPage,
+    CalendarPage
   ],
   providers: [
     StatusBar,

@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
-import { trigger, state, style, transition, animate } from '@angular/animations';
-import { AuthService } from '../../providers/auth-service/auth-service';
-import { SettingsPage } from '../settings/settings';
-import { ReportConfig, ReportEnum, ReportOption } from '../../models/report-options';
-import { DBService } from '../../providers/db-service/db-service';
+import {Component} from "@angular/core";
+import {NavController, NavParams} from "ionic-angular";
+import {trigger, state, style, transition, animate} from "@angular/animations";
+import {AuthService} from "../../providers/auth-service/auth-service";
+import {SettingsPage} from "../settings/settings";
+import {ReportConfig, ReportEnum, ReportOption} from "../../models/report-options";
+import {DBService} from "../../providers/db-service/db-service";
+import {CalendarPage} from "../calander/calendar";
 
 @Component({
   selector: 'page-home',
@@ -37,6 +38,10 @@ export class HomePage {
 
   navigateSettings() {
     this.navCtrl.push(SettingsPage);
+  }
+
+  navigateCalendar() {
+    this.navCtrl.push(CalendarPage,{id:this.authService.getUserId()});
   }
 
   updateReport(report: ReportEnum) {

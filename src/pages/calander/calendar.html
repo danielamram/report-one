@@ -1,0 +1,52 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>דוח 1</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding>
+  <div class="calendar-comp">
+
+    <ng-template #headerTemp>
+      <div class="cal-cell-row">
+        <div class="cal-cell cal-past columnHeader" *ngFor="let label of days_label">
+          {{label}}
+        </div>
+      </div>
+    </ng-template>`
+    <mwl-calendar-month-view [viewDate]="date"
+                             [events]="reports"
+                             [headerTemplate]="headerTemp"
+                             (dayClicked)=dayClicked($event)>
+      <button
+        mwlCalendarNextView
+        [(viewDate)]="date"
+        [view]="view">
+        Next
+      </button>
+    </mwl-calendar-month-view>
+  </div>
+
+  <div class="planning" *ngIf="!startPlanDay">
+    <label>
+      בחר יום בשביל לתכנן קדימה
+    </label>
+  </div>
+
+  <div class="planning" *ngIf="startPlanDay">
+    <div class="plan-input">
+      <label> : תאריך התחלה</label>
+      <label>{{startPlanDay.toDateString()}}</label>
+    </div>
+    <div class="plan-input">
+      <label>תאריך סיום : </label>
+      <label>{{startPlanDay ? startPlanDay.toDateString() : endPlanDay.toDateString()}}</label>
+    </div>
+    <ion-item>
+      <ion-label>סטטוס</ion-label>
+      <ion-select [(ngModel)]="planStatus">
+        <ion-option *ngFor="let status of reportStatuses" [value]="status.name">{{status.name}}</ion-option>
+      </ion-select>
+    </ion-item>
+  </div>
+</ion-content>
+
