@@ -39,6 +39,10 @@ export class AuthService {
     return this.afAuth.auth.currentUser.uid;
   }
 
+  updateUser(user:ReportUser) {
+    this.dbService.setUser(user);
+  }
+
   confirm(confirmCode: string, displayName: string, cid:string) {
     this.confirmationResult.confirm(confirmCode).then(() => {
       let currentUser: ReportUser = {
