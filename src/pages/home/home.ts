@@ -43,15 +43,15 @@ export class HomePage {
       message: 'האם אתה בטוח שברצונך להתנתק?',
       buttons: [
         {
-          text: 'ביטול',
-          handler: () => {
-            return;
-          }
-        },
-        {
           text: 'אישור',
           handler: () => {
             this.authService.signOut();
+          }
+        },
+        {
+          text: 'ביטול',
+          handler: () => {
+            return;
           }
         }
       ]
