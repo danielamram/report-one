@@ -34,10 +34,11 @@ export class AuthService {
     return this.afAuth.auth.currentUser.uid;
   }
 
-  confirm(confirmCode: string, displayName: string) {
+  confirm(confirmCode: string, displayName: string, cid:string) {
     this.confirmationResult.confirm(confirmCode).then(() => {
       let currentUser: ReportUser = {
         id: this.afAuth.auth.currentUser.uid,
+        cid: cid,
         phoneNumber: this.afAuth.auth.currentUser.phoneNumber,
         displayName: displayName
       };

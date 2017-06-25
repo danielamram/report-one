@@ -57,10 +57,10 @@ import { trigger, state, style, transition, animate, keyframes } from '@angular/
   ]
 })
 export class LoginPage {
-  logoState: any = "in";
-  cloudState: any = "in";
-  loginState: any = "in";
-  formState: any = "in";
+  logoState: string = "in";
+  cloudState: string = "in";
+  loginState: string = "in";
+  formState: string = "in";
   smsSent: boolean = false;
   private recaptchaVerifier:firebase.auth.RecaptchaVerifier;
 
@@ -75,7 +75,7 @@ export class LoginPage {
     this.smsSent = await this.authService.signUp(phoneNumber, this.recaptchaVerifier);
   }
 
-  confirmLogin(confirmCode:string, displayName:string){
-    this.authService.confirm(confirmCode, displayName);
+  confirmLogin(confirmCode:string, displayName:string, cid:string){
+    this.authService.confirm(confirmCode, displayName, cid);
   }
 }
