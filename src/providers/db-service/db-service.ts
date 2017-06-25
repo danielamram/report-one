@@ -24,4 +24,8 @@ export class DBService {
   getReport(id: string) {
     return this.db.object('reports/' + new Date().toJSON().slice(0,10) + '/' + id);
   }
+
+  getFriendsOfUser(userId: string): FirebaseObjectObservable<any> {
+    return this.db.object('users/'+userId+'/friends');
+  }
 }

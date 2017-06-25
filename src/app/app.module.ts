@@ -9,7 +9,7 @@ import { App } from './app.component';
 
 import { AuthService } from '../providers/auth-service/auth-service';
 import { LoginPage } from '../pages/login/login'
-import { AboutPage } from '../pages/about/about';
+import { FriendsPage } from '../pages/friends/friends';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 import { SettingsPage } from '../pages/settings/settings';
@@ -24,7 +24,7 @@ import { DBService } from '../providers/db-service/db-service';
   declarations: [
     App,
     LoginPage,
-    AboutPage,
+    FriendsPage,
     HomePage,
     TabsPage,
     SettingsPage
@@ -41,7 +41,7 @@ import { DBService } from '../providers/db-service/db-service';
   entryComponents: [
     App,
     LoginPage,
-    AboutPage,
+    FriendsPage,
     HomePage,
     TabsPage,
     SettingsPage
