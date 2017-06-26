@@ -37,7 +37,7 @@ export class FriendsPage {
     this.dbService.getUsers().subscribe(users => {
       this.originalUserList = users;
       if(!this.searchQuery){
-        this.userList = this.originalUserList.slice(0, 4);
+        this.userList = this.originalUserList.slice(0, 3);
       }
     });
     let currUserId = this.authService.getUserId();
@@ -62,6 +62,8 @@ export class FriendsPage {
     if(!this.authService.currentUser[0].following) {
       this.authService.currentUser[0].following = {};
     }
+    this.userList = [];
+    this.searchQuery = null;
     this.authService.currentUser[0].following[user.id] = false;
     this.dbService.setUser(this.authService.currentUser);
   }
@@ -73,7 +75,7 @@ export class FriendsPage {
     if (val && val.trim() != '') {
       this.userList = this.originalUserList.filter((item) => {
         return (item.displayName.toLowerCase().indexOf(val.toLowerCase()) > -1);
-      }).slice(0, 10);
+      }).slice(0, 3);
     }
   }
 }
