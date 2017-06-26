@@ -2,6 +2,7 @@ import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
 import {NavController} from 'ionic-angular';
 import {DBService} from "../../providers/db-service/db-service";
 import {AuthService} from "../../providers/auth-service/auth-service";
+import {async} from "rxjs/scheduler/async";
 
 @Component({
   selector: 'friend',
@@ -18,10 +19,8 @@ export class Friend implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     let userId = changes['friend'].currentValue;
-      this.dbService.getUserProperties(userId).then((user) => {
-        this.displayName = user.displayName;
-        this.reportState = user.reportStatus ? user.reportStatus.name : 'לא הוזן';
-      });
+
+
   }
 
 }
