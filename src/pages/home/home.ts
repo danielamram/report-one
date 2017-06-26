@@ -39,16 +39,16 @@ export class HomePage {
   logOut() {
     let confirm = this.alertCtrl.create({
       title: 'התנתקות מהמערכת',
-      message: 'האם אתה בטוח שברצונך להתנתק?',
+      message: 'תחשוב על זה רגע... אתה באמת רוצה להתנתק?$@?',
       buttons: [
         {
-          text: 'אישור',
+          text: 'דייייי',
           handler: () => {
             this.authService.signOut();
           }
         },
         {
-          text: 'ביטול',
+          text: 'אני לא יודע :(',
           handler: () => {
             return;
           }

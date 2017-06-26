@@ -15,7 +15,7 @@ export class DBService {
   }
 
   setUser(currentUser: ReportUser) {
-    this.users.update(currentUser.id, currentUser);
+    this.users.update(currentUser[0].id, currentUser[0]);
   }
 
   getUsers() {
@@ -31,7 +31,7 @@ export class DBService {
   }
 
   getFriendsOfUser(userId: string): FirebaseObjectObservable<any> {
-    return this.db.object('users/' + userId + '/friends');
+    return this.db.object('users/' + userId + '/following');
   }
 
   private getUserObject(userId: string): FirebaseObjectObservable<any> {
@@ -49,5 +49,26 @@ export class DBService {
         });
       });
     });
+  }
+
+  getFriendsListNames(userId:string) {
+    let friendsList:string[] =[];
+    return new Promise<string[]>((resolve,reject) => {this.getFriendsOfUser(userId).subscribe((friends) => {
+      for(let friend of friends) {
+        this.getNameByUserId(friend).then((name) => {
+          friendsList.push(name);
+        })
+      }
+      resolve(friendsList);
+    })});
+  }
+
+  getNameByUserId(userId: string) {
+    return new Promise<any>((resolve,reject) => {
+      this.getUserObject(userId).subscribe((user) => {
+      resolve({
+        displayName: user.displayName,
+      });
+    })});
   }
 }

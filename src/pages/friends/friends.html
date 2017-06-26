@@ -8,7 +8,23 @@
 
 <ion-content padding>
   <ion-list class="scroll-content">
-    <div *ngFor='let id of (friendsIDs | async)'>
+  <ion-searchbar
+    [(ngModel)]="searchQuery"
+    (ionInput)="getItems($event)">
+  </ion-searchbar>
+    <ion-list class="users-list">
+      <ion-item  *ngFor="let user of userList">
+        <div class="flex-row flex-end">
+          {{user.displayName}}({{user.phoneNumber}})
+          <button class="edit-button" style="float:left" ion-button color="primary" block
+                  (click)="sendRequest(user)">
+            <ion-icon style="font-size: 23px;" md="md-person-add" ios="md-person-add"></ion-icon>
+          </button>
+        </div>
+      </ion-item>
+    </ion-list>
+
+    <div *ngFor='let id of friendsIDs'>
       <friend [friend]=id>
       </friend>
     </div>

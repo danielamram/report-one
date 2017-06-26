@@ -59,7 +59,8 @@ export class AuthService {
           id: this.afAuth.auth.currentUser.uid,
           cid: cid,
           phoneNumber: this.afAuth.auth.currentUser.phoneNumber,
-          displayName: displayName
+          displayName: displayName,
+          following: []
         };
 
         this.dbService.setUser(currentUser);
