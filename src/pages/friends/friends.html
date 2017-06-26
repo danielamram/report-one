@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Friends Page
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-card class="scrollableContent">
+    <ion-scroll scrollY="true">
+    <ion-list no-lines no-padding class="scroll-content">
+      <ion-item class="friendItem" *ngFor="let follow of ((followingList | async) | keyValueFilter)">
+        <ion-avatar item-start>
+          <ion-icon *ngIf="follow.value" style="font-size: 2.5em;" name="{{getOption((follow.key | idToReport)?.$value)?.icon}}"></ion-icon>
+          <ion-icon *ngIf="!follow.value" style="font-size: 2.5em;" name="help-circle"></ion-icon>
+        </ion-avatar>
+        <h2>{{(follow.key | idToUser)?.displayName}}</h2>
+        <p *ngIf="follow.value">{{getOption((follow.key | idToReport)?.$value)?.name}}</p>
+        <p *ngIf="!follow.value">טרם אושר</p>
+      </ion-item>
+    </ion-list>
+  </ion-scroll>
+  </ion-card>
+
+</ion-content>
+

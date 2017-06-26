@@ -9,7 +9,7 @@ import { App } from './app.component';
 
 import { AuthService } from '../providers/auth-service/auth-service';
 import { LoginPage } from '../pages/login/login'
-import { AboutPage } from '../pages/about/about';
+import { FriendsPage } from '../pages/friends/friends';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 import { SettingsPage } from '../pages/settings/settings';
@@ -18,16 +18,26 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { environment } from '../environments/environment';
 import { DBService } from '../providers/db-service/db-service';
+import {Friend} from "../pages/friend/friend";
+import {keyValueFilterPipe} from "../pipes/keyValueFilter";
+import { ParseFollowingPipe } from '../pipes/parse-following/parse-following';
+import { IdToUserPipe } from '../pipes/id-to-user/id-to-user';
+import { IdToReportPipe } from '../pipes/id-to-report/id-to-report';
 
 
 @NgModule({
   declarations: [
     App,
     LoginPage,
-    AboutPage,
+    FriendsPage,
+    Friend,
     HomePage,
     TabsPage,
-    SettingsPage
+    SettingsPage,
+    keyValueFilterPipe,
+    ParseFollowingPipe,
+    IdToUserPipe,
+    IdToReportPipe
   ],
   imports: [
     BrowserModule,
@@ -41,7 +51,7 @@ import { DBService } from '../providers/db-service/db-service';
   entryComponents: [
     App,
     LoginPage,
-    AboutPage,
+    FriendsPage,
     HomePage,
     TabsPage,
     SettingsPage
@@ -51,7 +61,10 @@ import { DBService } from '../providers/db-service/db-service';
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthService,
-    DBService
+    DBService,
+    keyValueFilterPipe,
+    IdToUserPipe,
+    IdToReportPipe
   ]
 })
 export class AppModule {}
