@@ -8,10 +8,10 @@
 
 <ion-content padding>
   <ion-list class="scroll-content">
-  <ion-searchbar
-    [(ngModel)]="searchQuery"
-    (ionInput)="getItems($event)">
-  </ion-searchbar>
+    <ion-searchbar
+      [(ngModel)]="searchQuery"
+      (ionInput)="getItems($event)">
+    </ion-searchbar>
     <ion-list class="users-list">
       <ion-item  *ngFor="let user of userList">
         <div class="flex-row flex-end">
@@ -24,10 +24,21 @@
       </ion-item>
     </ion-list>
 
-    <div *ngFor='let id of friendsIDs'>
-      <friend [friend]=id>
-      </friend>
-    </div>
-  </ion-list>
+  <ion-card class="scrollableContent">
+    <ion-scroll scrollY="true">
+      <ion-list no-lines no-padding class="scroll-content">
+        <ion-item class="friendItem" *ngFor="let follow of ((followingList | async) | keyValueFilter)">
+          <ion-avatar item-start>
+            <ion-icon *ngIf="follow.value" style="font-size: 2.5em;" name="{{getOption((follow.key | idToReport)?.$value)?.icon}}"></ion-icon>
+            <ion-icon *ngIf="!follow.value" style="font-size: 2.5em;" name="help-circle"></ion-icon>
+          </ion-avatar>
+          <h2>{{(follow.key | idToUser)?.displayName}}</h2>
+          <p *ngIf="follow.value">{{getOption((follow.key | idToReport)?.$value)?.name}}</p>
+          <p *ngIf="!follow.value">טרם אושר</p>
+        </ion-item>
+      </ion-list>
+    </ion-scroll>
+  </ion-card>
+
 </ion-content>
 

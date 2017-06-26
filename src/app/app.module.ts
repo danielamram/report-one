@@ -19,6 +19,10 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { environment } from '../environments/environment';
 import { DBService } from '../providers/db-service/db-service';
 import {Friend} from "../pages/friend/friend";
+import {keyValueFilterPipe} from "../pipes/keyValueFilter";
+import { ParseFollowingPipe } from '../pipes/parse-following/parse-following';
+import { IdToUserPipe } from '../pipes/id-to-user/id-to-user';
+import { IdToReportPipe } from '../pipes/id-to-report/id-to-report';
 
 
 @NgModule({
@@ -29,7 +33,11 @@ import {Friend} from "../pages/friend/friend";
     Friend,
     HomePage,
     TabsPage,
-    SettingsPage
+    SettingsPage,
+    keyValueFilterPipe,
+    ParseFollowingPipe,
+    IdToUserPipe,
+    IdToReportPipe
   ],
   imports: [
     BrowserModule,
@@ -53,7 +61,10 @@ import {Friend} from "../pages/friend/friend";
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthService,
-    DBService
+    DBService,
+    keyValueFilterPipe,
+    IdToUserPipe,
+    IdToReportPipe
   ]
 })
 export class AppModule {}

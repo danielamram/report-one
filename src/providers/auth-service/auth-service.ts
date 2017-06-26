@@ -3,6 +3,7 @@ import {AngularFireAuth} from 'angularfire2/auth';
 import {Observable} from 'rxjs/Observable';
 import {DBService} from '../db-service/db-service';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/first';
 import {ReportUser} from '../../models/report-user';
 
 @Injectable()
@@ -18,7 +19,7 @@ export class AuthService {
   async isNewUser(phoneNumber): Promise<boolean> {
     return new Promise<boolean>((resolve, reject) => {
       const phoneNumberString = "+972" + phoneNumber;
-      this.dbService.users.subscribe((users) => {
+      this.dbService.users.first().subscribe((users) => {
         resolve(users.find((user) => user.phoneNumber === phoneNumberString) === undefined);
       });
     });
