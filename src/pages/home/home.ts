@@ -5,6 +5,8 @@ import {AuthService} from "../../providers/auth-service/auth-service";
 import {SettingsPage} from "../settings/settings";
 import {ReportConfig, ReportEnum, ReportOption} from "../../models/report-options";
 import {DBService} from "../../providers/db-service/db-service";
+import {CalendarPage} from "../calander/calendar";
+import * as moment from "moment"
 
 @Component({
   selector: 'page-home',
@@ -62,7 +64,11 @@ export class HomePage {
     this.navCtrl.push(SettingsPage);
   }
 
+  navigateCalendar() {
+    this.navCtrl.push(CalendarPage,{id:this.authService.getUserId()});
+  }
+
   updateReport(report: ReportEnum) {
-    this.dbService.updateReport(this.authService.getUserId(), report);
+    this.dbService.updateReport(this.authService.getUserId(), report, moment());
   }
 }

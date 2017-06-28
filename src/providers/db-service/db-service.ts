@@ -4,7 +4,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/first';
 import { ReportUser } from '../../models/report-user';
 import {ReportConfig, ReportEnum} from '../../models/report-options';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from "rxjs/Rx";
 
 @Injectable()
 export class DBService {
@@ -28,12 +28,17 @@ export class DBService {
     return this.db.list('reports/' + new Date().toJSON().slice(0, 10));
   }
 
-  updateReport(id: string, report: ReportEnum) {
-    this.reports.$ref.child(id).set(report);
+  updateReport(id: string, report: ReportEnum, date: any) {
+    let dateString = date.format('YYYY-MM-DD');
+    this.db.object('reports/' + dateString).$ref.child(id).set(report);
   }
 
   getReport(id: string) {
-    return this.db.object('reports/' + new Date().toJSON().slice(0, 10) + '/' + id);
+    return this.db.object('reports/' + new Date().toJSON().slice(0,10) + '/' + id);
+  }
+
+  getReports(){
+    return this.db.object('reports/').take(1);
   }
 
   getFriendsOfUser(userId: string): any {

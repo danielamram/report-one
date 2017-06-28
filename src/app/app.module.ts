@@ -13,6 +13,7 @@ import { FriendsPage } from '../pages/friends/friends';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 import { SettingsPage } from '../pages/settings/settings';
+import { CalendarPage } from "../pages/calander/calendar";
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -24,6 +25,8 @@ import { ParseFollowingPipe } from '../pipes/parse-following/parse-following';
 import { IdToUserPipe } from '../pipes/id-to-user/id-to-user';
 import { IdToReportPipe } from '../pipes/id-to-report/id-to-report';
 import { IdToRequestsPipe } from '../pipes/id-to-requests/id-to-requests';
+import {CalendarModule} from "angular-calendar/dist/esm/src/index";
+
 
 @NgModule({
   declarations: [
@@ -33,6 +36,8 @@ import { IdToRequestsPipe } from '../pipes/id-to-requests/id-to-requests';
     Friend,
     HomePage,
     TabsPage,
+    SettingsPage,
+    CalendarPage
     SettingsPage,
     keyValueFilterPipe,
     ParseFollowingPipe,
@@ -47,6 +52,7 @@ import { IdToRequestsPipe } from '../pipes/id-to-requests/id-to-requests';
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     BrowserAnimationsModule,
+    CalendarModule.forRoot(),
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -55,7 +61,8 @@ import { IdToRequestsPipe } from '../pipes/id-to-requests/id-to-requests';
     FriendsPage,
     HomePage,
     TabsPage,
-    SettingsPage
+    SettingsPage,
+    CalendarPage
   ],
   providers: [
     StatusBar,
