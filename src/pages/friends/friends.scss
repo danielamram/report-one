@@ -6,15 +6,16 @@ friends-page {
   }
 
   .users-list {
-    //border-bottom: 2px grey solid;
-    //border-left: 2px grey solid;
-    //border-right: 2px grey solid;
     width: 90%;
   }
 
   .edit-button {
     width: 40px;
     margin: 4px;
+  }
+
+  .trans {
+    background: transparent;
   }
 
   .scrollableContent {

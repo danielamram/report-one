@@ -23,6 +23,7 @@ import {keyValueFilterPipe} from "../pipes/keyValueFilter";
 import { ParseFollowingPipe } from '../pipes/parse-following/parse-following';
 import { IdToUserPipe } from '../pipes/id-to-user/id-to-user';
 import { IdToReportPipe } from '../pipes/id-to-report/id-to-report';
+import { IdToRequestsPipe } from '../pipes/id-to-requests/id-to-requests';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { IdToReportPipe } from '../pipes/id-to-report/id-to-report';
     keyValueFilterPipe,
     ParseFollowingPipe,
     IdToUserPipe,
-    IdToReportPipe
+    IdToReportPipe,
+    IdToRequestsPipe
   ],
   imports: [
     BrowserModule,
@@ -63,7 +65,8 @@ import { IdToReportPipe } from '../pipes/id-to-report/id-to-report';
     DBService,
     keyValueFilterPipe,
     IdToUserPipe,
-    IdToReportPipe
+    IdToReportPipe,
+    IdToRequestsPipe
   ]
 })
 export class AppModule {}

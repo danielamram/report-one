@@ -2,6 +2,7 @@ import {Component, EventEmitter, Output} from "@angular/core";
 import {AuthService} from "../../providers/auth-service/auth-service";
 import {ReportUser} from "../../models/report-user";
 import * as _ from "lodash";
+import { DBService } from '../../providers/db-service/db-service';
 
 @Component({
   selector: 'page-settings',
@@ -12,17 +13,15 @@ export class SettingsPage {
   public user: any;
   public currentUser: ReportUser;
   public currentUserBefore: ReportUser;
+  public users :any;
 
   @Output() public onUpdateDetails: EventEmitter<any>;
 
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService, private dbService:DBService) {
+    this.users = this.dbService.getUsers();
     this.onUpdateDetails = new EventEmitter();
     this.currentUser = authService.currentUser[0];
     this.currentUserBefore = _.cloneDeep(this.currentUser);
-  }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad SettingsPage');
   }
 
   enableEditMode() {
@@ -37,5 +36,9 @@ export class SettingsPage {
   updateDetails() {
     this.authService.updateUser(this.currentUser);
     this.isEditMode = false;
+  }
+
+  addPermision(user){
+    this.dbService.addPermissionToUser(user, this.currentUser.id);
   }
 }

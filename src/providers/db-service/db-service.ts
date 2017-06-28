@@ -17,7 +17,7 @@ export class DBService {
   }
 
   setUser(currentUser: ReportUser) {
-    this.users.update(currentUser[0].id, currentUser[0]);
+    this.users.update(currentUser[0] ? currentUser[0].id : currentUser.id, currentUser[0] ? currentUser[0] : currentUser);
   }
 
   getUsers() {
@@ -38,6 +38,11 @@ export class DBService {
 
   getFriendsOfUser(userId: string): any {
     return this.db.object('users/' + userId + '/following');
+  }
+
+  addPermissionToUser(user:any, id:string) {
+    user.following[id] = true;
+    this.users.update(user.id, user)
   }
 
   private getUserObject(userId: string): FirebaseObjectObservable<any> {

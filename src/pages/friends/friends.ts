@@ -17,7 +17,7 @@ export class FriendsPage {
   followingList: any;
   reportOptions = ReportConfig;
 
-  constructor(public navCtrl: NavController, public alertCtrl: AlertController ,private dbService: DBService, private authService: AuthService) {
+  constructor(public alertCtrl: AlertController ,private dbService: DBService, private authService: AuthService) {
     let currUserId = authService.getUserId();
     this.friendsIDs = dbService.getFriendsOfUser(currUserId);
     this.initializeItems();
