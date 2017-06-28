@@ -8,11 +8,9 @@ import {Observable} from "rxjs/Rx";
 @Injectable()
 export class DBService {
   users: FirebaseListObservable<ReportUser[]>;
-  reports: FirebaseObjectObservable<any[]>;
 
   constructor(private db: AngularFireDatabase) {
     this.users = this.db.list('users');
-    this.reports = this.db.object('reports/' + new Date().toJSON().slice(0,10));
   }
   setUser(currentUser: ReportUser) {
     this.users.update(currentUser.id, currentUser);
@@ -22,8 +20,9 @@ export class DBService {
     return this.db.list('users');
   }
 
-  updateReport(id: string, report: ReportEnum) {
-    this.reports.$ref.child(id).set(report);
+  updateReport(id: string, report: ReportEnum, date: any) {
+    let dateString = date.format('YYYY-MM-DD');
+    this.db.object('reports/' + dateString).$ref.child(id).set(report);
   }
 
   getReport(id: string):any {

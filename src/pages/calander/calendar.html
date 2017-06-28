@@ -1,29 +1,16 @@
 <ion-header>
   <ion-navbar>
     <ion-title>דוח 1</ion-title>
-
-    <ion-buttons end>
-      <button ion-button icon-only (click)="toggleEditMode()" *ngIf="!editMode">
-        <ion-icon name="create"></ion-icon>
-      </button>
-      <button ion-button icon-only (click)="saveEdit()" *ngIf="editMode">
-        <ion-icon name="checkmark"></ion-icon>
-      </button>
-      <button ion-button icon-only (click)="cancelEdit()" *ngIf="editMode">
-        <ion-icon name="close"></ion-icon>
-      </button>
-    </ion-buttons>
-
   </ion-navbar>
 </ion-header>
 <ion-content padding>
   <div class="calendar-comp">
-    <!--      <button
+    <button
     mwlCalendarNextView
     [(viewDate)]="date"
-    [view]="view">
-    Next
-  </button>-->
+    [view]="">
+            Next
+    </button>
     <ng-template #headerTemp>
       <div class="cal-cell-row">
         <div class="cal-cell cal-past columnHeader" *ngFor="let label of days_label">
@@ -33,23 +20,38 @@
     </ng-template>
     <mwl-calendar-month-view [viewDate]="date"
                              [events]="reports"
-                             [headerTemplate]="headerTemp"
-                             (dayClicked)=dayClicked($event)>
+                             [headerTemplate]="headerTemp">
     </mwl-calendar-month-view>
   </div>
 
-  <ion-list *ngIf="startPlanDay">
+  <ion-item *ngIf="editMode">
+    <ion-label>תאריך תחילה</ion-label>
+    <ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="startPlanDay" min="2017-06-26" max="2020" (ionChange)="setEndDay()"></ion-datetime>
+  </ion-item>
+  <ion-item *ngIf="editMode">
+    <ion-label>תאריך סיום</ion-label>
+    <ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="endPlanDay" min="2017" max="2020"></ion-datetime>
+  </ion-item>
+
+  <ion-list *ngIf="editMode">
     <ion-item>
       <ion-label>דיווח</ion-label>
-      <ion-select [(ngModel)]="gaming">
-        <ion-option value="nes">NES</ion-option>
-        <ion-option value="n64">Nintendo64</ion-option>
-        <ion-option value="ps">PlayStation</ion-option>
-        <ion-option value="genesis">Sega Genesis</ion-option>
-        <ion-option value="saturn">Sega Saturn</ion-option>
-        <ion-option value="snes">SNES</ion-option>
+      <ion-select [(ngModel)]="planStatus">
+        <ion-option *ngFor="let status of reportStatuses" value="{{status.id}}">{{status.name}}</ion-option>
       </ion-select>
     </ion-item>
   </ion-list>
+
+  <button ion-button icon-only *ngIf="editMode" (click)="saveEdit()">
+    <ion-icon name="checkmark"></ion-icon>
+  </button>
+  <button ion-button icon-only *ngIf="editMode" (click)="toggleEditMode()">
+    <ion-icon name="close"></ion-icon>
+  </button>
+
+  <ion-fab right bottom *ngIf="!editMode">
+    <button ion-fab (click)="toggleEditMode()"><ion-icon name="add"></ion-icon></button>
+  </ion-fab>
+
 </ion-content>
 

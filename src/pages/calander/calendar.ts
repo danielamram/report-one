@@ -2,7 +2,7 @@ import {Component, OnInit} from "@angular/core";
 import {NavController, NavParams} from "ionic-angular";
 import {DBService} from "../../providers/db-service/db-service";
 import {ReportConfig, ReportOption} from "../../models/report-options";
-
+import * as moment from "moment"
 
 @Component({
   selector: 'page-calendar',
@@ -13,10 +13,12 @@ export class CalendarPage implements OnInit {
   date:Date;
   days_label:string[];
   reports:any;
-  startPlanDay:Date;
-  endPlanDay:Date;
+  startPlanDay:any;
+  endPlanDay:any;
   planStatus:any;
+  editMode:boolean;
   reportStatuses:ReportOption[];
+
   constructor(public navCtrl:NavController, public navParams:NavParams, private dbService:DBService) {
   }
 
@@ -25,11 +27,13 @@ export class CalendarPage implements OnInit {
     this.dbService.getReports().subscribe(this.handleReports.bind(this));
     this.date = new Date(Date.now());
     this.days_label = [
-      'Sun', 'Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat'
+      'א', 'ב', 'ג', 'ד', 'ה', 'ו', 'ש'
     ];
     this.reports = [];
     this.reportStatuses = ReportConfig;
-    console.log( this.reportStatuses);
+    this.editMode = false;
+    this.startPlanDay = moment().format("YYYY-MM-DD");
+    this.endPlanDay = moment().format("YYYY-MM-DD");
   }
 
   handleReports(reports) {
@@ -60,13 +64,26 @@ export class CalendarPage implements OnInit {
     }
   }
 
-  dayClicked(event:any) {
-    if(!this.startPlanDay){
-      this.startPlanDay = event.day.date;
+  saveEdit() {
+    let currentDate = moment(this.startPlanDay);
+
+    while (currentDate <= moment(this.endPlanDay)) {
+      this.dbService.updateReport(this.id, this.planStatus, currentDate);
+      currentDate = moment(currentDate, "YYYY-MM-DD").add('days', 1);
     }
-    else if(event.date > this.startPlanDay){
-      this.endPlanDay = event.day.date;
-    }
+
+    this.dbService.getReports().subscribe(this.handleReports.bind(this));
+
+    this.reports = [];
+    this.toggleEditMode();
+  }
+
+  toggleEditMode() {
+    this.editMode = !this.editMode;
+  }
+
+  setEndDay() {
+    this.endPlanDay = this.startPlanDay;
   }
 }
 
