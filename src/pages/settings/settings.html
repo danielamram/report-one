@@ -43,8 +43,8 @@
     </ion-list-header>
     <ion-item *ngFor="let user of ((users | async) | idToRequests:currentUser.id)">
         {{user.displayName}}({{user.phoneNumber}})
-          <ion-icon item-end name="checkbox" (click)="addPermision(user)"></ion-icon>
-          <ion-icon item-end name="checkbox"></ion-icon>
+          <ion-icon item-end name="add-circle" (click)="addPermision(user)"></ion-icon>
+          <ion-icon item-end name="trash"></ion-icon>
     </ion-item>
   </ion-list>
 </ion-content>
