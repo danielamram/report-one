@@ -24,7 +24,7 @@ export class CalendarPage implements OnInit {
 
   ngOnInit():void {
     this.id = this.navParams.get('id');
-    this.dbService.getReports().subscribe(this.handleReports.bind(this));
+    this.dbService.getReportsCalendar().subscribe(this.handleReports.bind(this));
     this.date = new Date(Date.now());
     this.days_label = [
       'א', 'ב', 'ג', 'ד', 'ה', 'ו', 'ש'
@@ -54,6 +54,7 @@ export class CalendarPage implements OnInit {
   }
 
   assignReports(reportsData) {
+    this.reports = [];
     for (let reportData of reportsData) {
       let status = this.reportStatuses[reportData.status];
       this.reports = [...this.reports, {
@@ -72,9 +73,7 @@ export class CalendarPage implements OnInit {
       currentDate = moment(currentDate, "YYYY-MM-DD").add('days', 1);
     }
 
-    this.dbService.getReports().subscribe(this.handleReports.bind(this));
-
-    this.reports = [];
+    this.dbService.getReportsCalendar().subscribe(this.handleReports.bind(this));
     this.toggleEditMode();
   }
 

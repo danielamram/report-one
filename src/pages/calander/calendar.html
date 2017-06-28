@@ -8,8 +8,14 @@
     <button
     mwlCalendarNextView
     [(viewDate)]="date"
-    [view]="">
-            Next
+    [view]="'month'">
+            חודש הבא
+    </button>
+    <button
+      mwlCalendarPreviousView
+      [(viewDate)]="date"
+      [view]="'month'">
+      חודש קודם
     </button>
     <ng-template #headerTemp>
       <div class="cal-cell-row">

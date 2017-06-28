@@ -37,7 +37,7 @@ export class DBService {
     return this.db.object('reports/' + new Date().toJSON().slice(0,10) + '/' + id);
   }
 
-  getReports(){
+  getReportsCalendar(){
     return this.db.object('reports/').take(1);
   }
 

@@ -37,7 +37,7 @@ import {CalendarModule} from "angular-calendar/dist/esm/src/index";
     HomePage,
     TabsPage,
     SettingsPage,
-    CalendarPage
+    CalendarPage,
     SettingsPage,
     keyValueFilterPipe,
     ParseFollowingPipe,

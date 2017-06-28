@@ -26,7 +26,7 @@ export class FriendsPage {
   }
 
   getOption(optionID) {
-    let option = this.reportOptions.find((opt) => opt.id === optionID);
+    let option:any = this.reportOptions.find((opt) => opt.id === optionID);
     if (!option) {
       option = {id:-1, name: 'לא הוזן', icon:'contact'};
     }
