@@ -5,15 +5,22 @@ friends-page {
     overflow: hidden;
   }
 
-  .scrollableContent {
-    height: 96%;
-    width: 96%;
-    margin: 2%;
-    position: relative;
+  .users-list {
+    //border-bottom: 2px grey solid;
+    //border-left: 2px grey solid;
+    //border-right: 2px grey solid;
+    width: 90%;
+  }
 
-    .list-header {
-      //background: #EEEEEE;
-    }
+  .edit-button {
+    width: 40px;
+    margin: 4px;
+  }
+
+  .scrollableContent {
+    height: 48%;
+    width: 98%;
+    margin: 2%;
 
     .scroll-content {
       padding: 0px !important;
@@ -40,5 +47,4 @@ friends-page {
       }
     }
   }
-
 }

@@ -24,7 +24,6 @@ import { ParseFollowingPipe } from '../pipes/parse-following/parse-following';
 import { IdToUserPipe } from '../pipes/id-to-user/id-to-user';
 import { IdToReportPipe } from '../pipes/id-to-report/id-to-report';
 
-
 @NgModule({
   declarations: [
     App,
